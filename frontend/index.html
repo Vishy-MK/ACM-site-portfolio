@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="ar-nb.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ACM Manipal Chapter</title>
+    
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Righteous&display=swap" rel="stylesheet">
+    
+    
+    <style>
+      html, body {
+        margin: 0;
+        padding: 0;
+        
+        height: 100%;
+        overflow-x: hidden;
+        font-family: 'Inter', sans-serif;
+      }
+
+      #acmGridBg {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+
+  <body>
+    
+    <canvas id="acmGridBg"></canvas>
+
+    
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+
+    
+    <script>
+      const canvas = document.getElementById("acmGridBg");
+      const ctx = canvas.getContext("2d");
+      let w, h;
+
+      function resize() {
+        const dpr = window.devicePixelRatio || 1; 
+        w = canvas.width = window.innerWidth * dpr; 
+        h = canvas.height = window.innerHeight * dpr; 
+        canvas.style.width = `${window.innerWidth}px`; 
+        canvas.style.height = `${window.innerHeight}px`; 
+        ctx.scale(dpr, dpr); 
+      }
+
+      window.addEventListener("resize", resize);
+      resize();
+
+      const dots = [];
+      for (let i = 0; i < 20; i++) {
+        dots.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: Math.random() * 10+0.5,
+          vx: (Math.random() - 0.5) * 1,
+          vy: (Math.random() - 0.5) * 1,
+        });
+      }
+
+      function drawGrid() {
+        const spacing = 80;
+        ctx.strokeStyle = "rgba(255,255,255,0.03)";
+        ctx.lineWidth = 1;
+        for (let x = 0; x < w; x += spacing) {
+          ctx.beginPath();
+          ctx.moveTo(x, 0);
+          ctx.lineTo(x, h);
+          ctx.stroke();
+        }
+        for (let y = 0; y < h; y += spacing) {
+          ctx.beginPath();
+          ctx.moveTo(0, y);
+          ctx.lineTo(w, y);
+          ctx.stroke();
+        }
+      }
+
+      function animate() {
+        ctx.clearRect(0, 0, w, h);
+        drawGrid();
+
+        for (let dot of dots) {
+          dot.x += dot.vx;
+          dot.y += dot.vy;
+
+          if (dot.x < 0 || dot.x > w) dot.vx *= -1;
+          if (dot.y < 0 || dot.y > h) dot.vy *= -1;
+
+          ctx.beginPath();
+          ctx.arc(dot.x, dot.y, dot.r, 0, Math.PI * 2);
+            ctx.fillStyle = "rgba(0, 150, 255, 1)";
+          ctx.fill();
+        }
+
+        requestAnimationFrame(animate);
+      }
+
+      animate();
+    </script>
+  </body>
+</html>

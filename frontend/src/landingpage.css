@@ -1,0 +1,143 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300..800;1,300..800&display=swap");
+
+#root {
+  margin: 0 auto;
+  text-align: center;
+  height: -webkit-fill-available;
+  font-family: "Inter", sans-serif;
+}
+
+html,
+body {
+  transition: background 1.5s ease;
+  background-image: linear-gradient(315deg,
+      rgba(233, 213, 255, 0.8) 0%,
+      rgba(255, 255, 255, 1) 90%);
+}
+
+#bars {
+  width: 70%;
+}
+
+.pin {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  
+  z-index: -1;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+#domainBars {
+  display: flex;
+  transform: rotateZ(30deg) translateY(-35vh) translateX(17vw);
+  height: 140vh;
+  width: 45vw;
+  z-index: 0;
+}
+
+.barExt {
+  height: 250%;
+  width: 6.5vw;
+}
+
+@media (max-width: 640px) {
+  #bars {
+    width: 118%;
+  }
+
+  .barExt {
+    width: 9.5vw;
+  }
+
+  #domainBars {
+    width: 100vw;
+    padding-left: 15vw;
+    transform: none;
+    transform: rotateZ(16deg);
+    margin-top: -35px;
+  }
+}
+
+.mainBar {
+  width: 25%;
+  margin-inline: 10px;
+  height: 150vh;
+  position: relative;
+}
+
+.barText {
+  height: 0;
+  transition: all 0.5s;
+  overflow: hidden;
+  width: 6.5vw;
+}
+
+.barText svg {
+  margin: auto;
+  margin-top: 35px;
+}
+
+.mainBar:hover .barText {
+  height: 15%;
+  display: block;
+}
+
+.mainBar:hover .bar {
+  height: 42.5%;
+}
+
+#domainBars.open .mainBar .barText {
+  height: 15%;
+  display: block;
+}
+
+#domainBars.open .mainBar .bar {
+  height: 42.5%;
+}
+
+.barText div {
+  text-align: center;
+  transition: all .15s;
+
+}
+
+.barContent svg {
+  margin-bottom: 0.75rem;
+  transition: all .5s;
+}
+
+.barText div.barContent {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 42%;
+  width: 6.5vw;
+  text-align: center;
+}
+
+#domainBars:not(.open) .mainBar:not(:hover) .barContent {
+  color: white;
+}
+
+#domainBars:not(.open) .mainBar:not(:hover) .barContent svg {
+  stroke: white;
+}
+
+.bar {
+  height: 50%;
+  transition: all 0.5s;
+  width: 6.5vw;
+}
+
+
+
+.gsap-initial-hide {
+  visibility: hidden;
+}
+
+
+.aboutUsCards .bg-white {
+  background-color: #ffffffde !important;
+}
